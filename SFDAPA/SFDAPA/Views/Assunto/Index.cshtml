@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Model.Models.Assunto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Assuntos de @ViewBag.Aula.Turma.NomeTurma - @ViewBag.Aula.Titulo </h2>
+
+<p>
+    @Html.ActionLink("Adicionar novo assunto a esta aula", "Create", new { id = ViewBag.Aula.Codigo })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Ver Perguntas", "Index", new { controller = "Pergunta", id = item.Codigo }) |
+            @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.Codigo }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.Codigo })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { controller = "Aula", id = ViewBag.Aula.Turma.Codigo})
+</div>
