@@ -25,8 +25,9 @@ namespace Model.Models
 
         public Pergunta()
         {
+            Alternativas = new List<Alternativa>();
         }
-
+            
 
         public Pergunta(int Codigo, String Questao, List<Alternativa> Alternativas, Assunto Assunto)
         {

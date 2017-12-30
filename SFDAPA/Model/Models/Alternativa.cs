@@ -25,7 +25,7 @@ namespace Model.Models
 
         [Required(ErrorMessage = "A resposta deve ser classiicada como V ou F")]
         //[RegularExpression("V{1}")]
-        [StringLength(1, MinimumLength = 1)]
+        [StringLength(10, MinimumLength = 2)]
         [Display(Name = "Reposta")]
         public String Resposta { get; set; }
 

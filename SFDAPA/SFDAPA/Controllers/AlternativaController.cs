@@ -22,8 +22,7 @@ namespace SFDAPA.Controllers
             GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
             Pergunta Pergunta = gerenciadorPergunta.Obter(id);
             ViewBag.Pergunta = Pergunta;
-            List<Alternativa> Alternativas = new List<Alternativa>();
-            Alternativas = gerenciador.ObterTodasPorPergunta(Pergunta);
+            List<Alternativa> Alternativas = Pergunta.Alternativas.ToList();
             return View(Alternativas);
         }
 
@@ -43,24 +42,36 @@ namespace SFDAPA.Controllers
             List<SelectListItem> Opcoes = new List<SelectListItem>();
             Opcoes.Add(new SelectListItem { Text = "Verdadeiro" , Value = "" + 0});
             Opcoes.Add(new SelectListItem { Text = "Falso", Value = "" + 1 });
-            ViewBag.Alternativas = Opcoes.ToList();
+            ViewBag.Alternativas = Opcoes;
             return View();
         }
 
         // POST: Alternativa/Create
         [HttpPost]
-        public ActionResult Create(Alternativa Alternativa)
+        public ActionResult Create(FormCollection form)
         {
             try
             {
 
+                Alternativa Alternativa = new Alternativa();
                 Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;
+                Alternativa.Descricao = form[1];
+                int Resposta = Convert.ToInt32(form[2]);
+
+                if (Resposta == 0)
+                {
+                    Alternativa.Resposta = "Verdadeiro";
+                } else
+                {
+                    Alternativa.Resposta = "Falsa";
+                }
+
                 if (ModelState.IsValid)
                 {
                     Pergunta Pergunta = new Pergunta();
                     GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
 
-                    Pergunta = TempData["Pergunta"] as Pergunta;
+                    Pergunta = Alternativa.Pergunta;
                     Pergunta.Alternativas.Add(Alternativa);
                     gerenciadorPergunta.Editar(Pergunta);
 
