@@ -17,9 +17,14 @@ namespace SFDAPA.Controllers
             gerenciador = new GerenciadorAlternativa();
         }
         // GET: Alternativa
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
+            Pergunta Pergunta = gerenciadorPergunta.Obter(id);
+            ViewBag.Pergunta = Pergunta;
+            List<Alternativa> Alternativas = new List<Alternativa>();
+            Alternativas = gerenciador.ObterTodasPorPergunta(Pergunta);
+            return View(Alternativas);
         }
 
         // GET: Alternativa/Details/5
@@ -29,25 +34,41 @@ namespace SFDAPA.Controllers
         }
 
         // GET: Alternativa/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
+            Pergunta Pergunta = gerenciadorPergunta.Obter(id);
+            ViewBag.Pergunta = Pergunta;
+            TempData["Pergunta"] = Pergunta;
             return View();
         }
 
         // POST: Alternativa/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Alternativa Alternativa)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    Pergunta Pergunta = new Pergunta();
+                    GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
 
-                return RedirectToAction("Index");
+                    Pergunta = TempData["Pergunta"] as Pergunta;
+                    Pergunta.Alternativas.Add(Alternativa);
+                    gerenciadorPergunta.Editar(Pergunta);
+
+                    return RedirectToAction("Index", new { id = Pergunta.Codigo });
+                }
             }
             catch
             {
-                return View();
             }
+            Pergunta PerguntaAux = new Pergunta();
+            PerguntaAux = TempData["Pergunta"] as Pergunta;
+            ViewBag.Pergunta = PerguntaAux;
+            TempData["Pergunta"] = PerguntaAux;
+            return View();
         }
 
         // GET: Alternativa/Edit/5

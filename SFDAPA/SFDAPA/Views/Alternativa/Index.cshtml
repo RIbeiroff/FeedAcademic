@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Model.Models.Alternativa>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Alternativas</h2>
+
+<p>
+    @Html.ActionLink("Adicionar Nova Alternativa", "Create", new { id = ViewBag.Pergunta.Codigo })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Resposta)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resposta)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }) |
+                @Html.ActionLink("Detalhar", "Details", new { id = item.Codigo }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.Codigo })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { controller = "Pergunta", id = ViewBag.Pergunta.Assunto.Codigo })
+</div>
+
