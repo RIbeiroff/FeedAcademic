@@ -54,6 +54,79 @@ namespace SFDAPA.Controllers
 
             gerenciadorProfessor.Adicionar(p1);
 
+            GerenciadorTurma gerenciadorTurma = new GerenciadorTurma();
+
+            Turma turma1 = new Turma();
+            turma1.NomeTurma = "Banco de Dados I";
+            turma1.Professor = p1;
+
+
+            Turma turma2 = new Turma();
+            turma2.NomeTurma = "Estrutura de Dados II";
+            turma2.Professor = p1;
+
+            Turma turma3 = new Turma();
+            turma3.NomeTurma = "Engenharia De Software I";
+            turma3.Professor = p1;
+
+            gerenciadorTurma.Adicionar(turma1);
+            gerenciadorTurma.Adicionar(turma2);
+            gerenciadorTurma.Adicionar(turma3);
+
+            GerenciadorAula gerenciadorAula = new GerenciadorAula();
+
+            Aula aula1 = new Aula();
+            aula1.Data = Convert.ToDateTime("22/12/2017");
+            aula1.Titulo = "Aula 1";
+            aula1.Turma = turma1;
+
+            Aula aula2 = new Aula();
+            aula2.Data = Convert.ToDateTime("23/12/2017");
+            aula2.Titulo = "Aula 2";
+            aula2.Turma = turma1;
+
+            Aula aula3 = new Aula();
+            aula3.Data = Convert.ToDateTime("24/12/2017");
+            aula3.Titulo = "Aula 3";
+            aula3.Turma = turma1;
+
+            gerenciadorAula.Adicionar(aula1);
+            gerenciadorAula.Adicionar(aula2);
+            gerenciadorAula.Adicionar(aula3);
+
+
+            Aula aula4 = new Aula();
+            aula4.Data = Convert.ToDateTime("24/12/2017");
+            aula4.Titulo = "Aula 1";
+            aula4.Turma = turma2;
+
+            Aula aula5 = new Aula();
+            aula5.Data = Convert.ToDateTime("25/12/2017");
+            aula5.Titulo = "Aula 2";
+            aula5.Turma = turma2;
+
+            gerenciadorAula.Adicionar(aula4);
+            gerenciadorAula.Adicionar(aula5);
+
+            Aula aula6 = new Aula();
+            aula6.Data = Convert.ToDateTime("26/12/2017");
+            aula6.Titulo = "Aula 1";
+            aula6.Turma = turma3;
+
+            gerenciadorAula.Adicionar(aula6);
+
+            GerenciadorAssunto gerenciadorAssunto = new GerenciadorAssunto();
+            Assunto Aula1Assunto1 = new Assunto();
+            Aula1Assunto1.Aula = aula1;
+            Aula1Assunto1.Nome = "DBMS";
+
+            Assunto Aula1Assunto2 = new Assunto();
+            Aula1Assunto2.Aula = aula1;
+            Aula1Assunto2.Nome = "T-SQL";
+
+            gerenciadorAssunto.Adicionar(Aula1Assunto1);
+            gerenciadorAssunto.Adicionar(Aula1Assunto2);
+
             SessionHelper.Set(SessionKeys.USUARIO, p1);
 
             GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();

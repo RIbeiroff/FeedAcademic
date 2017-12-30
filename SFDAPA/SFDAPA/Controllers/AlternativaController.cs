@@ -40,6 +40,10 @@ namespace SFDAPA.Controllers
             Pergunta Pergunta = gerenciadorPergunta.Obter(id);
             ViewBag.Pergunta = Pergunta;
             TempData["Pergunta"] = Pergunta;
+            List<SelectListItem> Opcoes = new List<SelectListItem>();
+            Opcoes.Add(new SelectListItem { Text = "Verdadeiro" , Value = "" + 0});
+            Opcoes.Add(new SelectListItem { Text = "Falso", Value = "" + 1 });
+            ViewBag.Alternativas = Opcoes.ToList();
             return View();
         }
 
@@ -49,6 +53,8 @@ namespace SFDAPA.Controllers
         {
             try
             {
+
+                Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;
                 if (ModelState.IsValid)
                 {
                     Pergunta Pergunta = new Pergunta();

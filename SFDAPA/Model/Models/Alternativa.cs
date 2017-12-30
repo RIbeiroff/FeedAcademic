@@ -24,10 +24,10 @@ namespace Model.Models
         public String Descricao { get; set; }
 
         [Required(ErrorMessage = "A resposta deve ser classiicada como V ou F")]
-        [RegularExpression("V{1}")]
+        //[RegularExpression("V{1}")]
         [StringLength(1, MinimumLength = 1)]
         [Display(Name = "Reposta")]
-        public char Resposta { get; set; }
+        public String Resposta { get; set; }
 
         public Pergunta Pergunta { get; set; }
 
@@ -35,7 +35,7 @@ namespace Model.Models
         {
         }
 
-        public Alternativa(int Codigo, String Descricao, char Resposta)
+        public Alternativa(int Codigo, String Descricao, String Resposta)
         {
             this.Codigo = Codigo;
             this.Descricao = Descricao;
