@@ -127,6 +127,23 @@ namespace SFDAPA.Controllers
             gerenciadorAssunto.Adicionar(Aula1Assunto1);
             gerenciadorAssunto.Adicionar(Aula1Assunto2);
 
+            GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
+            Pergunta Pergunta1Assunto1 = new Pergunta();
+            Pergunta1Assunto1.Questao = "Qual a importância do DBMS?";
+            Pergunta1Assunto1.Assunto = Aula1Assunto1;
+
+            Pergunta Pergunta2Assunto1 = new Pergunta();
+            Pergunta2Assunto1.Questao = "Qual a função do DBMS?";
+            Pergunta2Assunto1.Assunto = Aula1Assunto1;
+
+            Pergunta Pergunta3Assunto1 = new Pergunta();
+            Pergunta3Assunto1.Questao = "Qual o significado da sigla DBMS?";
+            Pergunta3Assunto1.Assunto = Aula1Assunto1;
+
+            gerenciadorPergunta.Adicionar(Pergunta1Assunto1);
+            gerenciadorPergunta.Adicionar(Pergunta2Assunto1);
+            gerenciadorPergunta.Adicionar(Pergunta3Assunto1);
+
             SessionHelper.Set(SessionKeys.USUARIO, p1);
 
             GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();

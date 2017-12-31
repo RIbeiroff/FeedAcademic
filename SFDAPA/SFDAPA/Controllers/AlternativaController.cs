@@ -40,8 +40,8 @@ namespace SFDAPA.Controllers
             ViewBag.Pergunta = Pergunta;
             TempData["Pergunta"] = Pergunta;
             List<SelectListItem> Opcoes = new List<SelectListItem>();
-            Opcoes.Add(new SelectListItem { Text = "Verdadeiro" , Value = "" + 0});
-            Opcoes.Add(new SelectListItem { Text = "Falso", Value = "" + 1 });
+            Opcoes.Add(new SelectListItem { Text = "Verdadeiro" , Value = "Verdadeira"});
+            Opcoes.Add(new SelectListItem { Text = "Falso", Value = "Falsa" });
             ViewBag.Alternativas = Opcoes;
             return View();
         }
@@ -50,22 +50,25 @@ namespace SFDAPA.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection form)
         {
+            Alternativa Alternativa = new Alternativa();
+            Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;
+            Alternativa.Descricao = form[1];
+            Alternativa.Resposta = form[2];
+
+            if (Alternativa.Descricao.Length == 0 || Alternativa.Resposta.Length == 0)
+            {
+                Alternativa.Descricao = Alternativa.Resposta = null;
+                Alternativa.Pergunta = null;
+            }
+
+            Alternativa AlternativaAux = new Alternativa();
+            return ValidaCreate(AlternativaAux);
+        }
+
+        public ActionResult ValidaCreate(Alternativa Alternativa)
+        {
             try
             {
-
-                Alternativa Alternativa = new Alternativa();
-                Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;
-                Alternativa.Descricao = form[1];
-                int Resposta = Convert.ToInt32(form[2]);
-
-                if (Resposta == 0)
-                {
-                    Alternativa.Resposta = "Verdadeiro";
-                } else
-                {
-                    Alternativa.Resposta = "Falsa";
-                }
-
                 if (ModelState.IsValid)
                 {
                     Pergunta Pergunta = new Pergunta();
