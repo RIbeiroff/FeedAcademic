@@ -17,6 +17,7 @@ namespace SFDAPA.Controllers
             return RedirectToAction("Index","Professor");
         }
 
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
