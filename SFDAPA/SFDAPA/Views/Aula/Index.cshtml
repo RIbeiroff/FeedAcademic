@@ -7,39 +7,79 @@
 
 <h2>@ViewBag.Turma.NomeTurma</h2>
 
-<p>
-    @Html.ActionLink("Adicionar", "Create", new { id = ViewBag.Turma.Codigo})
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Data)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.ActionLink("Ver Assuntos", "Index", new { controller = "Assunto", id = item.Codigo }) |
-            @Html.ActionLink("Editar", "Edit", new { id=item.Codigo }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Codigo }) |
-            @Html.ActionLink("Deletar", "Delete", new { id=item.Codigo })
-        </td>
-    </tr>
+@if (ViewBag.Sessao == 0)
+{
+    <p>
+        @Html.ActionLink("Adicionar", "Create", new { id = ViewBag.Turma.Codigo })
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.ActionLink("Ver Assuntos", "Index", new { controller = "Assunto", id = item.Codigo }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Codigo }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Codigo })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+else if (@ViewBag.Sessao == 1)
+{
+    <p> </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.ActionLink("Abrir aula", "Index", new { controller = "Assunto", id = item.Codigo }) |
+                    @Html.ActionLink("Detalhar", "Details", new { id = item.Codigo }) |
+                </td>
+            </tr>
+        }
+
+    </table>
 }
 
-</table>
-
 <div>
-    @Html.ActionLink("Voltar", "Index", new { controller = "Turma"}) 
+    @Html.ActionLink("Voltar", "Index", new { controller = "Turma" })
 </div>

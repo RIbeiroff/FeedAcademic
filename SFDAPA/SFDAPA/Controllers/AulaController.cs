@@ -21,6 +21,10 @@ namespace SFDAPA.Controllers
 
         public ActionResult Index(int id)
         {
+            TurmaController TurmaController = new TurmaController();
+
+            ViewBag.Sessao = TurmaController.RetornarSessao();
+
             int IdTurma = id;
             GerenciadorTurma Turmas = new GerenciadorTurma();
             Turma Turma = Turmas.Obter(IdTurma);

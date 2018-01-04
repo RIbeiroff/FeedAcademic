@@ -18,6 +18,19 @@ namespace SFDAPA.Controllers
             gerenciador = new GerenciadorTurma();
         }
 
+        public int RetornarSessao()
+        {
+            if (typeof(Professor) == (SessionHelper.Get(SessionKeys.USUARIO)).GetType())
+            {
+                return 0;
+            }
+            else if (typeof(Aluno) == (SessionHelper.Get(SessionKeys.USUARIO)).GetType())
+            {
+                return 1;
+            }
+            return -1;
+        }
+
         // GET: Turma
         public ActionResult Index()
         {
