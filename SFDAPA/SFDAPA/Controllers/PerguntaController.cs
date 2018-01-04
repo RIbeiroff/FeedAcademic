@@ -132,5 +132,53 @@ namespace SFDAPA.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult AlterarCondicao(int id)
+        {
+            Pergunta Pergunta = new Pergunta();
+            Pergunta = gerenciador.Obter(id);
+            ViewBag.Assunto = Pergunta.Assunto.Codigo;
+
+            if (Pergunta.FlagCondicao == 0) {
+                ViewBag.Mensagem = "Tem certeza que você deseja liberar esta pergunta?";
+                ViewBag.Botao = "Liberar";
+            } else {
+                ViewBag.Mensagem = "Tem certeza que você deseja finalizar esta pergunta?";
+                ViewBag.Botao = "Encerrar";
+              }
+
+            return View(Pergunta);
+        }
+
+
+        [HttpPost]
+        public ActionResult AlterarCondicao(int id, FormCollection collection)
+        {
+            try
+            {
+                Pergunta Pergunta = new Pergunta();
+                Pergunta = gerenciador.Obter(id);
+
+                if (Pergunta.FlagCondicao == 0)
+                {
+                    Pergunta.FlagCondicao = 1;
+                    Pergunta.TextCondicao = "Finalizar";
+                } else if (Pergunta.FlagCondicao == 1)
+                {
+                    Pergunta.FlagCondicao = 2;
+                    Pergunta.TextCondicao = "Encerrada";
+                }
+
+                gerenciador.Editar(Pergunta);
+                return RedirectToAction("Index", new { id = Pergunta.Assunto.Codigo });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
     }
 }

@@ -28,7 +28,14 @@
                 @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }) |
                 @Html.ActionLink("Detalhes", "Details", new { id = item.Codigo }) |
                 @Html.ActionLink("Deletar", "Delete", new { id = item.Codigo }) |
-                @Html.ActionLink("Liberar Pergunta", "Delete", new { id = item.Codigo }) |
+                @if (item.FlagCondicao < 2)
+                    {
+                         @Html.ActionLink(item.TextCondicao, "AlterarCondicao", new { id = item.Codigo })
+                    }
+                else
+                    {
+                        <p style = "color:red"> Encerrada </p>
+                    }
             </td>
         </tr>
     }

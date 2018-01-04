@@ -22,10 +22,14 @@ namespace Model.Models
 
         public List<Alternativa> Alternativas { get; set; }
         public Assunto Assunto { get; set; }
+        public int FlagCondicao {get; set;}
+        public String TextCondicao { get; set;}
 
         public Pergunta()
         {
             Alternativas = new List<Alternativa>();
+            FlagCondicao = 0;
+            TextCondicao = "Liberar   ";    
         }
             
 

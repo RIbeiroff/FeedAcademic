@@ -1,0 +1,30 @@
+﻿@model Model.Models.Pergunta
+
+@{
+    ViewBag.Title = "AlterarCondicao";
+}
+
+<h2>Pergunta</h2>
+
+<h3>@ViewBag.Mensagem</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Questao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questao)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value= @ViewBag.Botao class="btn btn-default" /> |
+            @Html.ActionLink("Cancelar", "Index", new { id = ViewBag.Assunto })
+        </div>
+    }
+</div>
