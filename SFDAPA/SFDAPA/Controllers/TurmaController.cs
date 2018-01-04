@@ -21,9 +21,32 @@ namespace SFDAPA.Controllers
         // GET: Turma
         public ActionResult Index()
         {
+            /*
             List<Turma> turmas = (typeof(Professor) == ((Professor)SessionHelper.Get(SessionKeys.USUARIO)).GetType()) ?
                 gerenciador.ObterTodosPorProfessor((Professor)SessionHelper.Get(SessionKeys.USUARIO)) :
                 gerenciador.ObterTodos();
+                
+            int Sessao = (typeof(Professor) == ((Professor)SessionHelper.Get(SessionKeys.USUARIO)).GetType()) ? 0 :
+                         (typeof(Aluno) == ((Aluno)SessionHelper.Get(SessionKeys.USUARIO)).GetType()) ? 1 :
+                         -1;
+                         */
+
+            List<Turma> turmas = new List<Turma>();
+
+            if (typeof(Professor) == (SessionHelper.Get(SessionKeys.USUARIO)).GetType())
+            {
+               turmas = gerenciador.ObterTodosPorProfessor((Professor)SessionHelper.Get(SessionKeys.USUARIO));
+                ViewBag.Sessao = 0;
+            } else if (typeof(Aluno) == (SessionHelper.Get(SessionKeys.USUARIO)).GetType())
+            {
+                turmas = gerenciador.ObterTodosPorAluno((Aluno)SessionHelper.Get(SessionKeys.USUARIO));
+                ViewBag.Sessao = 1;
+            }
+            else
+            {
+                turmas = gerenciador.ObterTodos();
+            }
+
             return View(turmas);
         }
 

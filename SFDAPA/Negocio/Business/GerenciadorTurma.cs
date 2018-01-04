@@ -47,5 +47,10 @@ namespace Negocio.Business
         {
             return persistencia.ObterTodosPorProfessor(Professor);
         }
+
+        public List<Turma> ObterTodosPorAluno(Aluno Aluno)
+        {
+            return persistencia.ObterTodosPorAluno(Aluno);
+        }
     }
 }

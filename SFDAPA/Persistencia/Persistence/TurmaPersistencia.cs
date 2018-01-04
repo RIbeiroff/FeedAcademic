@@ -49,5 +49,10 @@ namespace Persistencia.Persistence
         {
             return listaTurma.Where(t => t.Professor.Codigo == Professor.Codigo).ToList();
         }
+
+        public List<Turma> ObterTodosPorAluno(Aluno Aluno)
+        {
+            return listaTurma.Where(t => t.ListaAlunos.Exists(a => a.Codigo == Aluno.Codigo)).ToList(); 
+        }
     }
 }

@@ -54,20 +54,47 @@ namespace SFDAPA.Controllers
 
             gerenciadorProfessor.Adicionar(p1);
 
+            SessionHelper.Set(SessionKeys.USUARIO, p1);
+
+            GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
+            Aluno a1 = new Aluno();
+            a1.Nome = "Jadson Ribeiro dos Santos";
+            a1.Codigo = 1;
+            a1.Email = "jadson@ufs.com";
+            a1.Senha = Criptografia.GerarHashSenha("12345");
+
+            //SessionHelper.Set(SessionKeys.USUARIO, a1);
+
+            Aluno a2 = new Aluno();
+            a2.Nome = "Kaic Barros";
+            a2.Codigo = 2;
+            a2.Email = "kaicbarros@gmail.com";
+            a2.Senha = Criptografia.GerarHashSenha("000000");
+
+            gerenciadorAluno.Adicionar(a1);
+            gerenciadorAluno.Adicionar(a2);
+
+
+
             GerenciadorTurma gerenciadorTurma = new GerenciadorTurma();
 
             Turma turma1 = new Turma();
             turma1.NomeTurma = "Banco de Dados I";
             turma1.Professor = p1;
+            turma1.ListaAlunos = new List<Aluno>();
+            turma1.ListaAlunos.Add(a1);
 
 
             Turma turma2 = new Turma();
             turma2.NomeTurma = "Estrutura de Dados II";
             turma2.Professor = p1;
+            turma2.ListaAlunos = new List<Aluno>();
+            turma2.ListaAlunos.Add(a1);
 
             Turma turma3 = new Turma();
             turma3.NomeTurma = "Engenharia De Software I";
             turma3.Professor = p1;
+            turma3.ListaAlunos = new List<Aluno>();
 
             gerenciadorTurma.Adicionar(turma1);
             gerenciadorTurma.Adicionar(turma2);
@@ -144,25 +171,6 @@ namespace SFDAPA.Controllers
             gerenciadorPergunta.Adicionar(Pergunta2Assunto1);
             gerenciadorPergunta.Adicionar(Pergunta3Assunto1);
 
-            SessionHelper.Set(SessionKeys.USUARIO, p1);
-
-            GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
-            Aluno a1 = new Aluno();
-            a1.Nome = "Jadson Ribeiro dos Santos";
-            a1.Codigo = 1;
-            a1.Email = "jadson@ufs.com";
-            a1.Senha = Criptografia.GerarHashSenha("12345");
-
-            //SessionHelper.Set(SessionKeys.USUARIO, a1);
-
-            Aluno a2 = new Aluno();
-            a2.Nome = "Kaic Barros";
-            a2.Codigo = 2;
-            a2.Email = "kaicbarros@gmail.com";
-            a2.Senha = Criptografia.GerarHashSenha("000000");
-
-            gerenciadorAluno.Adicionar(a1);
-            gerenciadorAluno.Adicionar(a2);
 
         }
 

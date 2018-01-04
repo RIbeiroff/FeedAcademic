@@ -21,7 +21,7 @@ namespace SFDAPA.Controllers
         // GET: Aluno
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Turma");
         }
 
         public ActionResult Listar()
