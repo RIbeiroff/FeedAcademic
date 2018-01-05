@@ -50,5 +50,10 @@ namespace Persistencia.Persistence
             return listaPerguntas.Where(a => a.Assunto == Assunto).ToList();
         }
 
+        public List<Pergunta> ObterPorAssuntoECondicao(Assunto Assunto)
+        {
+            return listaPerguntas.Where(a => a.Assunto == Assunto).Where(p => p.FlagCondicao == 1).ToList();
+        }
+
     }
 }

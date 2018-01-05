@@ -17,8 +17,6 @@ namespace SFDAPA.Controllers
             gerenciador = new GerenciadorAula();
         }
 
-
-
         public ActionResult Index(int id)
         {
             TurmaController TurmaController = new TurmaController();
@@ -37,6 +35,8 @@ namespace SFDAPA.Controllers
         // GET: Aula/Details/5
         public ActionResult Details(int id)
         {
+            TurmaController turma = new TurmaController();
+            ViewBag.Sessao = turma.RetornarSessao();
             Aula aula = gerenciador.Obter(id);
             return View(aula);
         }

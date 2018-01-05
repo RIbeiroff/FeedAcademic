@@ -67,6 +67,7 @@ namespace SFDAPA.Controllers
         public ActionResult Details(int id)
         {
             Turma turma = gerenciador.Obter(id);
+            ViewBag.Sessao = RetornarSessao();
             return View(turma);
         }
 

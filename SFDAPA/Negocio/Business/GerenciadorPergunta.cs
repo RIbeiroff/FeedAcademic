@@ -49,6 +49,11 @@ namespace Negocio.Business
             return persistencia.ObterPorAssunto(Assunto);
         }
 
+        public List<Pergunta> ObterPorAssuntoECondicao(Assunto Assunto)
+        {
+            return persistencia.ObterPorAssuntoECondicao(Assunto);
+        }
+
         public void Remover(Pergunta Pergunta)
         {
             persistencia.Remover(Pergunta);

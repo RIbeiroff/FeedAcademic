@@ -6,42 +6,74 @@
 
 <h2>Perguntas</h2>
 
-<p>
-    @Html.ActionLink("Adicionar nova pergunta", "Create", new { id = ViewBag.Assunto.Codigo })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Questao)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@if (@ViewBag.Sessao != 1)
+{
+    <p>
+        @Html.ActionLink("Adicionar nova pergunta", "Create", new { id = ViewBag.Assunto.Codigo })
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Questao)
-            </td>
-            <td>
-                @Html.ActionLink("Ver Alternativas", "Index", new { controller = "ALternativa", id = item.Codigo }) |
-                @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }) |
-                @Html.ActionLink("Detalhes", "Details", new { id = item.Codigo }) |
-                @Html.ActionLink("Deletar", "Delete", new { id = item.Codigo }) |
-                @if (item.FlagCondicao < 2)
-                    {
-                         @Html.ActionLink(item.TextCondicao, "AlterarCondicao", new { id = item.Codigo })
-                    }
-                else
-                    {
-                        <p style = "color:red"> Encerrada </p>
-                    }
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Questao)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Questao)
+                </td>
+                <td>
+                    @Html.ActionLink("Ver Alternativas", "Index", new { controller = "ALternativa", id = item.Codigo }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Codigo }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Codigo }) |
+                    @if (item.FlagCondicao < 2)
+                    {
+                        @Html.ActionLink(item.TextCondicao, "AlterarCondicao", new { id = item.Codigo })
+                    }
+                    else
+                    {
+                        <p style="color:red"> Encerrada </p>
+                    }
+                </td>
+            </tr>
+        }
 
+    </table>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Questao)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Questao)
+                </td>
+                <td>
+                    @if (item.FlagCondicao < 2)
+                        {
+                            @Html.ActionLink("Submeter Resposta", "Index", new { controller = "ALternativa", id = item.Codigo }) 
+
+                        } else {
+                            <p style="color:red"> Encerrada </p>
+                        }
+                </td>
+            </tr>
+        }
+
+    </table>
+}
 <div>
     @Html.ActionLink("Voltar", "Index", new { controller = "Assunto", id = ViewBag.Assunto.Aula.Codigo })
 </div>

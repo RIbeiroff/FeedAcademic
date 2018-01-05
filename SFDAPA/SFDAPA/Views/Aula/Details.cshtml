@@ -38,7 +38,17 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Codigo }) |
-    @Html.ActionLink("Voltar", "Index", new { id = Model.Turma.Codigo})
-</p>
+
+@if (@ViewBag.Sessao != 1)
+{
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Codigo }) |
+        @Html.ActionLink("Voltar", "Index", new { id = Model.Turma.Codigo })
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Voltar", "Index", new { id = Model.Turma.Codigo })
+    </p>
+}

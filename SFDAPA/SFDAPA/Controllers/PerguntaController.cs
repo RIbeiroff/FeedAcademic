@@ -22,8 +22,24 @@ namespace SFDAPA.Controllers
         {
             GerenciadorAssunto Assuntos = new GerenciadorAssunto();
             Assunto Assunto = Assuntos.Obter(id);               //Obter o assunto passado como parâmetro
-            ViewBag.Assunto = Assunto; 
-            return View(gerenciador.ObterPorAssunto(Assunto)); //Retornar as perguntas referentes a este assunto e enviar a view
+            ViewBag.Assunto = Assunto;
+            TurmaController TurmaController = new TurmaController();
+            int Sessao = TurmaController.RetornarSessao();
+            ViewBag.Sessao = Sessao;
+            List<Pergunta> Perguntas = new List<Pergunta>();
+
+            if (Sessao == 0) // Se o professor estiver na sessao
+            {
+                Perguntas = gerenciador.ObterPorAssunto(Assunto); //Entao exiba as perguntas por assunto
+            } else if (Sessao == 1) // Se for o aluno
+            {
+                Perguntas = gerenciador.ObterPorAssuntoECondicao(Assunto);  //Exiba por assunto e condicao
+            } else
+            {
+                Perguntas = gerenciador.ObterTodos();
+            }
+
+            return View(Perguntas); //Retornar as perguntas referentes a este assunto e enviar a view
         }
  
         // GET: Pergunta/Details/5

@@ -23,12 +23,16 @@ namespace SFDAPA.Controllers
             GerenciadorAula GerenciadorAula = new GerenciadorAula();
             Aula Aula = GerenciadorAula.Obter(id); // Obtendo a aula passada por parâmetro pela Index
             ViewBag.Aula = Aula;
+            TurmaController TurmaController = new TurmaController();
+            ViewBag.Sessao = TurmaController.RetornarSessao();
             return View(gerenciador.ObterTodosPorAula(Aula)); // Retornando a View Index os Assuntos referentes a aula
         }
 
         // GET: Assunto/Details/5
         public ActionResult Details(int id)
         {
+            TurmaController TurmaController = new TurmaController();
+            ViewBag.Sessao = TurmaController.RetornarSessao();
             Assunto Assunto = gerenciador.Obter(id);
             ViewBag.Aula = Assunto.Aula.Codigo;
             return View(Assunto);
