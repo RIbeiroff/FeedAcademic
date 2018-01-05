@@ -55,21 +55,15 @@ namespace SFDAPA.Controllers
             Alternativa.Descricao = form[1];
             Alternativa.Resposta = form[2];
 
-            if (Alternativa.Descricao.Length == 0 || Alternativa.Resposta.Length == 0)
-            {
-                Alternativa.Descricao = Alternativa.Resposta = null;
-                Alternativa.Pergunta = null;
-            }
-
-            Alternativa AlternativaAux = new Alternativa();
-            return ValidaCreate(AlternativaAux);
+            //Alternativa AlternativaAux = new Alternativa();
+            return ValidaCreate(Alternativa);
         }
 
         public ActionResult ValidaCreate(Alternativa Alternativa)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && !string.IsNullOrEmpty(Alternativa.Descricao) && !string.IsNullOrEmpty(Alternativa.Resposta))
                 {
                     Pergunta Pergunta = new Pergunta();
                     GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
@@ -80,6 +74,8 @@ namespace SFDAPA.Controllers
 
                     return RedirectToAction("Index", new { id = Pergunta.Codigo });
                 }
+                else
+                    ModelState.AddModelError("", "Preencha os campos satanas");
             }
             catch
             {
@@ -88,6 +84,12 @@ namespace SFDAPA.Controllers
             PerguntaAux = TempData["Pergunta"] as Pergunta;
             ViewBag.Pergunta = PerguntaAux;
             TempData["Pergunta"] = PerguntaAux;
+            List<SelectListItem> Opcoes = new List<SelectListItem>();
+            Opcoes.Add(new SelectListItem { Text = "Verdadeiro", Value = "Verdadeira" });
+            Opcoes.Add(new SelectListItem { Text = "Falso", Value = "Falsa" });
+            ViewBag.Alternativas = Opcoes;
+
+
             return View();
         }
 

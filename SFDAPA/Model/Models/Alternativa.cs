@@ -17,13 +17,13 @@ namespace Model.Models
         [Key]
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "A descrição da resposta deve ter pelo menos 1 caractere")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "A descrição da resposta deve ter pelo menos 1 caractere")]
         [StringLength(50, MinimumLength = 5)]
         [DataType(DataType.Text)]
         [Display(Name = "Descrição da alternativa")]
         public String Descricao { get; set; }
 
-        [Required(ErrorMessage = "A resposta deve ser classiicada como Verdadeira ou Falsa")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "A resposta deve ser classiicada como Verdadeira ou Falsa")]
         [StringLength(10, MinimumLength = 2)]
         [Display(Name = "Reposta")]
         public String Resposta { get; set; }
