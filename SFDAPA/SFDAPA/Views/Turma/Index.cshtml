@@ -46,9 +46,9 @@ else if (@ViewBag.Sessao == 1)
                 </td>
 
                 <td>
-                    @Html.ActionLink("Abrir turma", "Index", new { controller = "Aula", id = item.Codigo }) |
+                    @Html.ActionLink("Abrir", "Index", new { controller = "Aula", id = item.Codigo }) |
                     @Html.ActionLink("Detalhar", "Details", new { id = item.Codigo }) |
-                    @Html.ActionLink("Sair da turma", "Edit", new { id = item.Codigo }) |
+                    @Html.ActionLink("Sair", "Edit", new { id = item.Codigo }) |
                 </td>
             </tr>
         }

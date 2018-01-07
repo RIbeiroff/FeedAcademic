@@ -55,7 +55,7 @@ namespace SFDAPA.Controllers
 
             gerenciadorProfessor.Adicionar(p1);
 
-           // SessionHelper.Set(SessionKeys.USUARIO, p1);
+            SessionHelper.Set(SessionKeys.USUARIO, p1);
 
             GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
             Aluno a1 = new Aluno();
@@ -64,7 +64,7 @@ namespace SFDAPA.Controllers
             a1.Email = "jadson@ufs.com";
             a1.Senha = Criptografia.GerarHashSenha("12345");
 
-           SessionHelper.Set(SessionKeys.USUARIO, a1);
+           //SessionHelper.Set(SessionKeys.USUARIO, a1);
 
             Aluno a2 = new Aluno();
             a2.Nome = "Kaic Barros";
@@ -174,6 +174,12 @@ namespace SFDAPA.Controllers
             gerenciadorPergunta.Adicionar(Pergunta2Assunto1);
             gerenciadorPergunta.Adicionar(Pergunta3Assunto1);
 
+            GerenciadorAlternativa gerenciadorAlternativa = new GerenciadorAlternativa();
+
+            gerenciadorAlternativa.Adicionar(new Alternativa(1, "Database Management Security", "Falsa", Pergunta3Assunto1));
+            gerenciadorAlternativa.Adicionar(new Alternativa(2, "Data Management System", "Falsa", Pergunta3Assunto1));
+            gerenciadorAlternativa.Adicionar(new Alternativa(3, "Database Management System", "Verdadeira", Pergunta3Assunto1));
+            gerenciadorAlternativa.Adicionar(new Alternativa(4, "Data Machine Security", "Falsa", Pergunta3Assunto1));
 
         }
 

@@ -17,14 +17,13 @@ namespace Model.Models
         [Key]
         public int Codigo { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "A descrição da resposta deve ter pelo menos 1 caractere")]
+        [Required]
         [StringLength(50, MinimumLength = 5)]
         [DataType(DataType.Text)]
         [Display(Name = "Descrição da alternativa")]
         public String Descricao { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "A resposta deve ser classiicada como Verdadeira ou Falsa")]
-        [StringLength(10, MinimumLength = 2)]
+        [Required(ErrorMessage = "A resposta deve ser classiicada como Verdadeira ou Falsa")]
         [Display(Name = "Reposta")]
         public String Resposta { get; set; }
 
@@ -35,11 +34,12 @@ namespace Model.Models
         {
         }
 
-        public Alternativa(int Codigo, String Descricao, String Resposta)
+        public Alternativa(int Codigo, String Descricao, String Resposta, Pergunta Pergunta)
         {
             this.Codigo = Codigo;
             this.Descricao = Descricao;
             this.Resposta = Resposta;
+            this.Pergunta = Pergunta;
         }
 
 

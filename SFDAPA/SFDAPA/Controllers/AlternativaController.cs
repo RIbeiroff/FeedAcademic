@@ -22,7 +22,7 @@ namespace SFDAPA.Controllers
             GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
             Pergunta Pergunta = gerenciadorPergunta.Obter(id);
             ViewBag.Pergunta = Pergunta;
-            List<Alternativa> Alternativas = Pergunta.Alternativas.ToList();
+            List<Alternativa> Alternativas = gerenciador.ObterPorPergunta(Pergunta);
             return View(Alternativas);
         }
 
@@ -55,7 +55,9 @@ namespace SFDAPA.Controllers
             Alternativa.Descricao = form[1];
             Alternativa.Resposta = form[2];
 
-            //Alternativa AlternativaAux = new Alternativa();
+            if (Alternativa.Resposta.Length == 0)
+                Alternativa.Resposta = null;
+
             return ValidaCreate(Alternativa);
         }
 
@@ -65,21 +67,20 @@ namespace SFDAPA.Controllers
             {
                 if (ModelState.IsValid && !string.IsNullOrEmpty(Alternativa.Descricao) && !string.IsNullOrEmpty(Alternativa.Resposta))
                 {
-                    Pergunta Pergunta = new Pergunta();
-                    GerenciadorPergunta gerenciadorPergunta = new GerenciadorPergunta();
+                    Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;              
+                    gerenciador.Adicionar(Alternativa);
 
-                    Pergunta = Alternativa.Pergunta;
-                    Pergunta.Alternativas.Add(Alternativa);
-                    gerenciadorPergunta.Editar(Pergunta);
-
-                    return RedirectToAction("Index", new { id = Pergunta.Codigo });
+                    return RedirectToAction("Index", new { id = Alternativa.Pergunta.Codigo });
                 }
-                else
-                    ModelState.AddModelError("", "Preencha os campos satanas");
+                 else
+                    ModelState.AddModelError("", "Por favor, preencha todos os campos");
+                
             }
             catch
             {
             }
+            
+
             Pergunta PerguntaAux = new Pergunta();
             PerguntaAux = TempData["Pergunta"] as Pergunta;
             ViewBag.Pergunta = PerguntaAux;
@@ -96,29 +97,74 @@ namespace SFDAPA.Controllers
         // GET: Alternativa/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Alternativa Alternativa = gerenciador.Obter(id);
+            TempData["Codigo"] = Alternativa.Codigo;
+            TempData["Pergunta"] = Alternativa.Pergunta;
+
+            List<SelectListItem> Opcoes = new List<SelectListItem>();
+            Opcoes.Add(new SelectListItem { Text = "Verdadeiro", Value = "Verdadeira" });
+            Opcoes.Add(new SelectListItem { Text = "Falso", Value = "Falsa" });
+            ViewBag.Alternativas = Opcoes;
+            ViewBag.Pergunta = Alternativa.Pergunta.Codigo;
+
+            return View(Alternativa);
         }
 
         // POST: Alternativa/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(FormCollection form)
+        {
+
+            Alternativa Alternativa = new Alternativa();
+            Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;
+            Alternativa.Codigo = Convert.ToInt32(form[1]);
+            Alternativa.Descricao = form[2];
+            Alternativa.Resposta = form[3];
+
+            if (Alternativa.Resposta.Length == 0)
+                Alternativa.Resposta = null;
+
+            return ValidaEdit(Alternativa);
+        }
+
+        public ActionResult ValidaEdit(Alternativa Alternativa)
         {
             try
             {
-                // TODO: Add update logic here
+                Alternativa.Pergunta = TempData["Pergunta"] as Pergunta;
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid && !string.IsNullOrEmpty(Alternativa.Descricao) && !string.IsNullOrEmpty(Alternativa.Resposta))
+                {
+                    gerenciador.Editar(Alternativa);
+
+                    return RedirectToAction("Index", new { id = Alternativa.Pergunta.Codigo });
+                }
+                else
+                    ModelState.AddModelError("", "Por favor, preencha todos os campos");
+
             }
             catch
             {
-                return View();
             }
+
+            TempData["Pergunta"] = Alternativa.Pergunta;
+            ViewBag.Pergunta = Alternativa.Pergunta.Codigo;
+            List<SelectListItem> Opcoes = new List<SelectListItem>();
+            Opcoes.Add(new SelectListItem { Text = "Verdadeiro", Value = "Verdadeira" });
+            Opcoes.Add(new SelectListItem { Text = "Falso", Value = "Falsa" });
+            ViewBag.Alternativas = Opcoes;
+            int id = Alternativa.Codigo;
+
+            return View(Alternativa);
         }
 
         // GET: Alternativa/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Alternativa Alternativa = new Alternativa();
+            Alternativa = gerenciador.Obter(id);
+            ViewBag.Pergunta = Alternativa.Pergunta.Codigo;
+            return View(Alternativa);
         }
 
         // POST: Alternativa/Delete/5
@@ -128,13 +174,14 @@ namespace SFDAPA.Controllers
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                Alternativa Alternativa = gerenciador.Obter(id);
+                gerenciador.Remover(Alternativa);
+                return RedirectToAction("Index", new { id = Alternativa.Pergunta.Codigo});
             }
             catch
             {
                 return View();
             }
-        }
+        } 
     }
 }

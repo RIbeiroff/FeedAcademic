@@ -44,5 +44,10 @@ namespace Persistencia.Persistence
         {
             return listaAlternativas;
         }
+
+        public List<Alternativa> ObterPorPergunta(Pergunta Pergunta)
+        {
+            return listaAlternativas.Where(a => a.Pergunta.Codigo == Pergunta.Codigo).ToList();
+        }
     }
 }

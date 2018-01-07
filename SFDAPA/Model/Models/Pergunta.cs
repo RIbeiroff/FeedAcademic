@@ -20,14 +20,12 @@ namespace Model.Models
         [Display(Name = "Pergunta da Questão")]
         public String Questao { get; set; }
 
-        public List<Alternativa> Alternativas { get; set; }
         public Assunto Assunto { get; set; }
         public int FlagCondicao {get; set;}
         public String TextCondicao { get; set;}
 
         public Pergunta()
         {
-            Alternativas = new List<Alternativa>();
             FlagCondicao = 0;
             TextCondicao = "Liberar   ";    
         }
@@ -37,7 +35,6 @@ namespace Model.Models
         {
             this.Codigo = Codigo;
             this.Questao = Questao;
-            this.Alternativas = Alternativas;
             this.Assunto = Assunto;
         }
 
