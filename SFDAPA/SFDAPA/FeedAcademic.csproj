@@ -250,6 +250,8 @@
     <Content Include="Views\Pergunta\AlterarCondicao.cshtml" />
     <Content Include="Views\Alternativa\Edit.cshtml" />
     <Content Include="Views\Alternativa\Delete.cshtml" />
+    <Content Include="Views\SubmissaoResposta\Index.cshtml" />
+    <Content Include="Views\SubmissaoResposta\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Perguntas</h2>
 
 @if (@ViewBag.Sessao != 1)
@@ -34,6 +33,7 @@
               {
                     @Html.ActionLink(item.TextCondicao, "AlterarCondicao", new { id = item.Codigo })
               } else {
+
                         <p style="color:red"> Encerrada </p>
                   }
                 </td>
@@ -61,7 +61,7 @@ else
                 <td>
                     @if (item.FlagCondicao < 2)
                         {
-                            @Html.ActionLink("Submeter Resposta", "Index", new { controller = "ALternativa", id = item.Codigo }) 
+                            @Html.ActionLink("Submeter Resposta", "Index", new { Controller = "SubmissaoResposta", id = item.Codigo }) 
 
                         } else {
                             <p style="color:red"> Encerrada </p>

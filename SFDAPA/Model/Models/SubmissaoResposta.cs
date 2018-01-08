@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Model.App_GlobalResources;
+using System.ComponentModel.DataAnnotations;
+
 /**
  * 
  */
@@ -11,31 +14,35 @@ namespace Model.Models
 {
     public class SubmissaoResposta
     {
+        [Key]
         public int Codigo { get; set; }
-        public int CodigoPergunta { get; set; }
-        public char[] Respostas { get; set; }
 
+        [Required]
+        public Pergunta Pergunta { get; set; }
 
-        public SubmissaoResposta()
-        {
+        [Required]
+        public Aluno Aluno { get; set; }
+
+        public List<Alternativa> Alternativas;
+        public List<Boolean> Respostas;
+        
+        public SubmissaoResposta(){
+            Alternativas = new List<Alternativa>();
+            Respostas = new List<Boolean>();
         }
 
-        public SubmissaoResposta(int Codigo, int CodigoPergunta, char[] Respostas)
+        public SubmissaoResposta(int Codigo, Pergunta Pergunta, Aluno Aluno)
         {
             this.Codigo = Codigo;
-            this.CodigoPergunta = CodigoPergunta;
-            this.Respostas = Respostas;
+            this.Pergunta = Pergunta;
+            this.Aluno = Aluno;
+            Alternativas = new List<Alternativa>();
+            Respostas = new List<Boolean>();
         }
 
-        public void Enviar()
-        {
-            // TODO implement here
-        }
+        public void Enviar(){}
 
-        public void Alterar()
-        {
-            // TODO implement here
-        }
+        public void Alterar(){}
 
         public void Visualizar()
         {

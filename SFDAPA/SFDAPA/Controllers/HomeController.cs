@@ -55,7 +55,7 @@ namespace SFDAPA.Controllers
 
             gerenciadorProfessor.Adicionar(p1);
 
-            SessionHelper.Set(SessionKeys.USUARIO, p1);
+            //SessionHelper.Set(SessionKeys.USUARIO, p1);
 
             GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
             Aluno a1 = new Aluno();
@@ -64,7 +64,7 @@ namespace SFDAPA.Controllers
             a1.Email = "jadson@ufs.com";
             a1.Senha = Criptografia.GerarHashSenha("12345");
 
-           //SessionHelper.Set(SessionKeys.USUARIO, a1);
+            SessionHelper.Set(SessionKeys.USUARIO, a1);
 
             Aluno a2 = new Aluno();
             a2.Nome = "Kaic Barros";
@@ -169,6 +169,7 @@ namespace SFDAPA.Controllers
             Pergunta Pergunta3Assunto1 = new Pergunta();
             Pergunta3Assunto1.Questao = "Qual o significado da sigla DBMS?";
             Pergunta3Assunto1.Assunto = Aula1Assunto1;
+            Pergunta3Assunto1.FlagCondicao = 1; // Em aberto 
 
             gerenciadorPergunta.Adicionar(Pergunta1Assunto1);
             gerenciadorPergunta.Adicionar(Pergunta2Assunto1);

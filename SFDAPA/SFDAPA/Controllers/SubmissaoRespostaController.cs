@@ -18,11 +18,11 @@ namespace SFDAPA.Controllers
         }
 
         // GET: SubmissaoResposta
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            return RedirectToAction("Create", new { controller = "SubmissaoResposta", id = id});
         }
-
+        
         // GET: SubmissaoResposta/Details/5
         public ActionResult Details(int id)
         {
@@ -30,25 +30,31 @@ namespace SFDAPA.Controllers
         }
 
         // GET: SubmissaoResposta/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            GerenciadorPergunta GerenciadorPergunta = new GerenciadorPergunta();
+            Pergunta Pergunta = GerenciadorPergunta.Obter(id);
+
+            GerenciadorAlternativa GerenciadorAlternativa = new GerenciadorAlternativa();
+            List<Alternativa> Alternativas = new List<Alternativa>();
+
+            Alternativas = GerenciadorAlternativa.ObterPorPergunta(Pergunta);
+
+            ViewBag.Pergunta = Pergunta;
+
+            return View(Alternativas);
         }
 
         // POST: SubmissaoResposta/Create
         [HttpPost]
-        public ActionResult Create(SubmissaoResposta submissaoResposta)
+        public ActionResult Create(FormCollection form)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    gerenciador.Adicionar(submissaoResposta);
-                    RedirectToAction("Index");
-                }
-                // TODO: Add insert logic here
+                SubmissaoResposta resposta = new SubmissaoResposta();
+                String resp = form["1"].ToString();
+                return RedirectToAction("Index", new { controller = "Pergunta", id = 1 });
 
-                return RedirectToAction("Index");
             }
             catch
             {

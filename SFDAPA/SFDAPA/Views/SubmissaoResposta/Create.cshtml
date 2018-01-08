@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Model.Models.Alternativa>
+
+<div class="container">
+    <h2> @ViewBag.Pergunta.Questao </h2>
+    <p>Assinale as opcões como verdadeiras ou falsas: </p>
+</div>
+
+@using (Html.BeginForm("Create", "SubmissaoResposta"))
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table">
+        <tr>
+            <th>
+                Alternativas
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @item.Codigo
+                </td>
+                <td>
+                    <form>
+                        <label class="radio-inline">
+                            <input type="radio" name=@item.Codigo> Verdadeira
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name=@item.Codigo> Falsa
+                        </label>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success">Enviar Resposta</button>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { controller = "Pergunta", id = @ViewBag.Pergunta.Assunto.Codigo })
+</div>
