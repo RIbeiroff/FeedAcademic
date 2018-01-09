@@ -40,18 +40,22 @@ namespace SFDAPA.Controllers
 
             Alternativas = GerenciadorAlternativa.ObterPorPergunta(Pergunta);
 
-            ViewBag.Pergunta = Pergunta;
+            SubmissaoResposta SubmissaoResposta = new SubmissaoResposta();
+            SubmissaoResposta.Pergunta = Pergunta;
+            SubmissaoResposta.Alternativas = Alternativas;
 
-            return View(Alternativas);
+            ViewBag.Pergunta = SubmissaoResposta.Pergunta;
+            return View(SubmissaoResposta.Alternativas);
         }
+
 
         // POST: SubmissaoResposta/Create
         [HttpPost]
-        public ActionResult Create(List<FormCollection> forms)
+        public ActionResult Create(FormCollection forms)
         {
             try
             {
-                SubmissaoResposta resposta = new SubmissaoResposta();
+                SubmissaoResposta resp = new SubmissaoResposta();
                 return RedirectToAction("Index", new { controller = "Pergunta", id = 1 });
 
             }

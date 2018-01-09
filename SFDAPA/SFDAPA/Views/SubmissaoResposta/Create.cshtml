@@ -5,7 +5,7 @@
     <p>Assinale as opcões como verdadeiras ou falsas: </p>
 </div>
 
-@using (Html.BeginForm("Create", "SubmissaoResposta"))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -22,9 +22,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
-                <td>
-                    @item.Codigo
                 </td>
                 <td>
                     @using (Html.BeginForm()) {
