@@ -163,7 +163,7 @@ namespace SFDAPA.Controllers
             Pergunta Pergunta2Assunto1 = new Pergunta();
             Pergunta2Assunto1.Questao = "Qual a função do DBMS?";
             Pergunta2Assunto1.Assunto = Aula1Assunto1;
-            Pergunta2Assunto1.FlagCondicao = 1;
+            Pergunta2Assunto1.FlagCondicao = 0;
              
 
             Pergunta Pergunta3Assunto1 = new Pergunta();

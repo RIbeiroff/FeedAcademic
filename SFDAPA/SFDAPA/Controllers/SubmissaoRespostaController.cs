@@ -47,12 +47,11 @@ namespace SFDAPA.Controllers
 
         // POST: SubmissaoResposta/Create
         [HttpPost]
-        public ActionResult Create(FormCollection form)
+        public ActionResult Create(List<FormCollection> forms)
         {
             try
             {
                 SubmissaoResposta resposta = new SubmissaoResposta();
-                String resp = form["1"].ToString();
                 return RedirectToAction("Index", new { controller = "Pergunta", id = 1 });
 
             }

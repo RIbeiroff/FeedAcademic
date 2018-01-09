@@ -27,14 +27,16 @@
                     @item.Codigo
                 </td>
                 <td>
+                    @using (Html.BeginForm()) {
                     <form>
                         <label class="radio-inline">
-                            <input type="radio" name=@item.Codigo> Verdadeira
+                            <input type="radio" name=@item.Codigo value="true"> Verdadeira
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name=@item.Codigo> Falsa
+                            <input type="radio" name=@item.Codigo value="false"> Falsa
                         </label>
                     </form>
+                    }
                 </td>
             </tr>
         }
