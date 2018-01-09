@@ -51,7 +51,7 @@ namespace SFDAPA.Controllers
 
         // POST: SubmissaoResposta/Create
         [HttpPost]
-        public ActionResult Create(FormCollection forms)
+        public ActionResult Create(FormCollection form)
         {
             try
             {
