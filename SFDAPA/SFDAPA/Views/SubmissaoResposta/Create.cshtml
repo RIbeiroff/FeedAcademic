@@ -24,7 +24,6 @@
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
                 <td>
-                    @using (Html.BeginForm()) {
                     <form>
                         <label class="radio-inline">
                             <input type="radio" name=@item.Codigo value="true"> Verdadeira
@@ -33,7 +32,6 @@
                             <input type="radio" name=@item.Codigo value="false"> Falsa
                         </label>
                     </form>
-                    }
                 </td>
             </tr>
         }
