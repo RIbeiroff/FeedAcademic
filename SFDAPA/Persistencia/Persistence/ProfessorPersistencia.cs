@@ -47,5 +47,10 @@ namespace Persistencia.Persistence
         {
             return listaProfessor;
         }
+
+        public Professor ObterPorLogin(Login login)
+        {
+            return listaProfessor.Where(p => p.Email.Equals(login.Email) && p.Senha.Equals(login.Senha)).FirstOrDefault();
+        }
     }
 }

@@ -85,6 +85,7 @@
     <Compile Include="Models\Exceptions\PersistenciaException.cs" />
     <Compile Include="Models\Exceptions\ViewException.cs" />
     <Compile Include="Models\FeedbackAssunto.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Pergunta.cs" />
     <Compile Include="Models\PerguntaFeedback.cs" />
     <Compile Include="Models\Professor.cs" />

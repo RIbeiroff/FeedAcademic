@@ -14,7 +14,7 @@ namespace SFDAPA.Controllers
         public ActionResult Index()
         {
             Simulacao();
-            return RedirectToAction("Index","Professor");
+            return RedirectToAction("Login");
         }
 
 
@@ -55,7 +55,7 @@ namespace SFDAPA.Controllers
 
             gerenciadorProfessor.Adicionar(p1);
 
-            //SessionHelper.Set(SessionKeys.USUARIO, p1);
+            SessionHelper.Set(SessionKeys.USUARIO, p1);
 
             GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
             Aluno a1 = new Aluno();
@@ -84,18 +84,20 @@ namespace SFDAPA.Controllers
             turma1.Professor = p1;
             turma1.ListaAlunos = new List<Aluno>();
             turma1.ListaAlunos.Add(a1);
-
+            turma1.ListaAlunos.Add(a2);
 
             Turma turma2 = new Turma();
             turma2.NomeTurma = "Estrutura de Dados II";
             turma2.Professor = p1;
             turma2.ListaAlunos = new List<Aluno>();
             turma2.ListaAlunos.Add(a1);
+            turma2.ListaAlunos.Add(a2);
 
             Turma turma3 = new Turma();
             turma3.NomeTurma = "Engenharia De Software I";
             turma3.Professor = p1;
             turma3.ListaAlunos = new List<Aluno>();
+            turma3.ListaAlunos.Add(a2);
 
             gerenciadorTurma.Adicionar(turma1);
             gerenciadorTurma.Adicionar(turma2);
@@ -164,7 +166,7 @@ namespace SFDAPA.Controllers
             Pergunta2Assunto1.Questao = "Qual a função do DBMS?";
             Pergunta2Assunto1.Assunto = Aula1Assunto1;
             Pergunta2Assunto1.FlagCondicao = 0;
-             
+
 
             Pergunta Pergunta3Assunto1 = new Pergunta();
             Pergunta3Assunto1.Questao = "Qual o significado da sigla DBMS?";
@@ -182,6 +184,39 @@ namespace SFDAPA.Controllers
             gerenciadorAlternativa.Adicionar(new Alternativa(3, "Database Management System", "Verdadeira", Pergunta3Assunto1));
             gerenciadorAlternativa.Adicionar(new Alternativa(4, "Data Machine Security", "Falsa", Pergunta3Assunto1));
 
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Login(FormCollection form)
+        {
+            Login Login = new Login();
+            Login.Email = form["Email"];
+            Login.Senha = form["Senha"];
+            Login.Senha = Criptografia.GerarHashSenha(Login.Senha);
+
+            GerenciadorProfessor gerenciadorProfessor = new GerenciadorProfessor();
+            GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
+
+            Professor professor = gerenciadorProfessor.ObterPorLogin(Login);
+            Aluno aluno = new Aluno();
+
+            if (professor != null)
+            {
+                SessionHelper.Set(SessionKeys.USUARIO, professor);
+                return RedirectToAction("Index", "Turma");
+            }
+            else if ( (aluno = gerenciadorAluno.ObterPorAluno(Login)) != null)
+            {
+                SessionHelper.Set(SessionKeys.USUARIO, aluno);
+                return RedirectToAction("Index", "Turma");
+            }
+
+            return View();
         }
 
         // GET: Turma/Create

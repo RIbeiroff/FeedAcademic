@@ -43,6 +43,11 @@ namespace Persistencia.Persistence
         public List<Aluno> ObterTodos()
         {
             return listaAlunos;
-        }  
+        } 
+        
+        public Aluno ObterPorLogin(Login login)
+        {
+            return listaAlunos.Where(a => a.Email.Equals(login.Email) && a.Senha.Equals(login.Senha)).FirstOrDefault();
+        }
     }
 }

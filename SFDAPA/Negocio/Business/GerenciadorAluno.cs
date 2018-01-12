@@ -42,5 +42,10 @@ namespace Negocio.Business
         {
             return persistencia.ObterTodos();
         }
+
+        public Aluno ObterPorAluno(Login login)
+        {
+            return persistencia.ObterPorLogin(login);
+        }
     }
 }
