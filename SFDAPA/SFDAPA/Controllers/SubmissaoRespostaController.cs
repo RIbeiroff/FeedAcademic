@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Models;
 using Negocio.Business;
+using SFDAPA.Util;
 
 namespace SFDAPA.Controllers
 {
@@ -40,12 +41,22 @@ namespace SFDAPA.Controllers
 
             Alternativas = GerenciadorAlternativa.ObterPorPergunta(Pergunta);
 
+            //Montagem da SubmissaoResposta
             SubmissaoResposta SubmissaoResposta = new SubmissaoResposta();
             SubmissaoResposta.Pergunta = Pergunta;
             SubmissaoResposta.Alternativas = Alternativas;
+            SubmissaoResposta.Aluno = (Aluno)SessionHelper.Get(SessionKeys.USUARIO);
 
+            Resposta Respostas = new Resposta();
+
+            foreach (Alternativa questoes in SubmissaoResposta.Alternativas)
+            {
+                Respostas.Add(questoes.Descricao, new[] {"Verdadeira", "Falsa"});
+            }
+
+            TempData["SubmissaoReposta"] = SubmissaoResposta;
             ViewBag.Pergunta = SubmissaoResposta.Pergunta;
-            return View(SubmissaoResposta.Alternativas);
+            return View(Respostas);
         }
 
 
@@ -55,7 +66,21 @@ namespace SFDAPA.Controllers
         {
             try
             {
-                SubmissaoResposta resp = new SubmissaoResposta();
+                SubmissaoResposta SubmissaoResposta = new SubmissaoResposta();
+                SubmissaoResposta = TempData["SubmissaoReposta"] as SubmissaoResposta;
+                List<Alternativa> Lista = new List<Alternativa>();
+
+                foreach (Alternativa AlternativaCorrente in SubmissaoResposta.Alternativas)
+                {
+                    String chave = "Model.Answers[" + AlternativaCorrente.Descricao + "].Value";
+                    AlternativaCorrente.Resposta = form[chave].ToString();
+                    Lista.Add(AlternativaCorrente);    
+                }
+
+                SubmissaoResposta.Alternativas = Lista;
+
+                gerenciador.Adicionar(SubmissaoResposta);
+
                 return RedirectToAction("Index", new { controller = "Pergunta", id = 1 });
 
             }

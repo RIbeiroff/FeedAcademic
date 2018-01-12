@@ -88,6 +88,7 @@
     <Compile Include="Models\Pergunta.cs" />
     <Compile Include="Models\PerguntaFeedback.cs" />
     <Compile Include="Models\Professor.cs" />
+    <Compile Include="Models\Resposta.cs" />
     <Compile Include="Models\SubmissaoFeedback.cs" />
     <Compile Include="Models\SubmissaoResposta.cs" />
     <Compile Include="Models\Turma.cs" />
