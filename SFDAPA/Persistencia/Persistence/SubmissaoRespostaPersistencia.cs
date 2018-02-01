@@ -45,5 +45,10 @@ namespace Persistencia.Persistence
             return listaSubmissaoResposta;
         }
 
+        public List<SubmissaoResposta> ObterPorAluno(Aluno Aluno)
+        {
+            return listaSubmissaoResposta.Where(s => s.Aluno.Codigo == Aluno.Codigo).ToList();
+        }
+
     }
 }

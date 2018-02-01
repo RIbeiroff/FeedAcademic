@@ -22,6 +22,7 @@ namespace Model.Models
 
         public Assunto Assunto { get; set; }
         public int FlagCondicao {get; set;} //0 - Cadastrada, 1 - Em aberto, 2 - Finalizada
+        public int FlagSubmissaoResposta { get; set; } // 0 - não houve submissao, 1 - houve submissao
         public String TextCondicao { get; set;}
 
         public Pergunta()

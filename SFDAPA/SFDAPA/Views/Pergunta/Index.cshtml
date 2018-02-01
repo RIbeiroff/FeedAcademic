@@ -59,12 +59,14 @@ else
                     @Html.DisplayFor(modelItem => item.Questao)
                 </td>
                 <td>
-                    @if (item.FlagCondicao < 2)
+                    @if (item.FlagCondicao == 1 && item.FlagSubmissaoResposta == 0)
                         {
                             @Html.ActionLink("Submeter Resposta", "Index", new { Controller = "SubmissaoResposta", id = item.Codigo }) 
 
+                        } else if (item.FlagCondicao == 1 && item.FlagSubmissaoResposta == 1){
+                          <b>  <p style="color:green"> Resposta enviada! </p> </b>
                         } else {
-                            <p style="color:red"> Encerrada </p>
+                            <p style="color:red"> Encerrada... </p>
                         }
                 </td>
             </tr>

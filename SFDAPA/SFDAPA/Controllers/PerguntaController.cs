@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Models;
 using Negocio.Business;
+using SFDAPA.Util;
+
 
 namespace SFDAPA.Controllers
 {
@@ -33,7 +35,28 @@ namespace SFDAPA.Controllers
                 Perguntas = gerenciador.ObterPorAssunto(Assunto); //Entao exiba as perguntas por assunto
             } else if (Sessao == 1) // Se for o aluno
             {
-                Perguntas = gerenciador.ObterPorAssuntoECondicao(Assunto);  //Exiba por assunto e condicao
+                Perguntas = gerenciador.ObterPorAssuntoECondicao(Assunto);  //Exiba por assunto e condicao em aberto
+                List<SubmissaoResposta> SubmissoesReposta =  new GerenciadorSubmissaoResposta().ObterPorAluno( (Aluno) SessionHelper.Get(SessionKeys.USUARIO));
+                List<Pergunta> PerguntasAux = new List<Pergunta>();
+
+                foreach (Pergunta Pergunta in Perguntas)
+                {
+                    SubmissaoResposta SubmissaoResposta = new SubmissaoResposta();
+                    SubmissaoResposta = SubmissoesReposta.Where(s => s.Pergunta.Codigo == Pergunta.Codigo).FirstOrDefault();
+
+                    if (SubmissaoResposta == null)
+                    {
+                        Pergunta.FlagSubmissaoResposta = 0; //Não houve submissao
+                        PerguntasAux.Add(Pergunta);
+                    } else
+                    {
+                        Pergunta.FlagSubmissaoResposta = 1; //Houve submissao
+                        PerguntasAux.Add(Pergunta);
+                    }
+                }
+
+                Perguntas.Clear();
+                Perguntas = PerguntasAux;
             } else
             {
                 Perguntas = gerenciador.ObterTodos();

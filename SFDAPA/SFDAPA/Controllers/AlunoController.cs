@@ -11,8 +11,7 @@ namespace SFDAPA.Controllers
     {
         private GerenciadorAluno gerenciador;
         private List<Aluno> alunos;
-        private int aluno;
-
+      
         public AlunoController()
         {
             gerenciador = new GerenciadorAluno();
