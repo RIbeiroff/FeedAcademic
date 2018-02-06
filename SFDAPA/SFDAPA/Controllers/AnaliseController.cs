@@ -18,8 +18,51 @@ namespace SFDAPA.Controllers
         }
 
         // GET: Analise
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            return RedirectToAction("ProcessarResultado", new { controller = "AnaliseController", id = id});
+        }
+
+        public ActionResult ProcessarResultado(int id)
+        {
+            Pergunta Pergunta = new GerenciadorPergunta().Obter(id);
+            List<SubmissaoResposta> SubmissaoRespostas = new GerenciadorSubmissaoResposta().ObterPorPergunta(Pergunta);
+            List<Alternativa> Alternativas = new GerenciadorAlternativa().ObterPorPergunta(Pergunta);
+            List<Boolean> Respostas = new List<Boolean>(); //Armazenar as respostas que estao em String em Boolean
+            List<Indice> Indices = new List<Indice>();
+
+            int Contador = 0;
+
+            foreach (Alternativa Alternativa in Alternativas)
+            {
+                if (Alternativa.Resposta.Equals("Verdadeiro"))
+                    Respostas.Add(true);
+                else
+                    Respostas.Add(false);
+                Indices.Add(new Indice(Alternativa));
+            }
+
+            foreach(SubmissaoResposta SubmissaoResposta in SubmissaoRespostas)
+            {
+                for (int x = 0; x < SubmissaoResposta.Alternativas.Count; x++)
+                {
+                    if (SubmissaoResposta.Respostas.ElementAt(x) == Respostas.ElementAt(x))
+                    {
+                        Indice IndiceAcerto = Indices.ElementAt(x);
+                        IndiceAcerto.QuantAcerto++;
+                        Indices.Insert(x, IndiceAcerto);
+                    } else
+                    {
+                        Indice IndiceErro = Indices.ElementAt(x);
+                        IndiceErro.QuantErro++;
+                        Indices.Insert(x, IndiceErro);
+                    }
+                }
+
+                Contador++;
+            }
+
+
             return View();
         }
 

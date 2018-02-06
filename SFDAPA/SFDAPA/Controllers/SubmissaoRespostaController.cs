@@ -78,7 +78,7 @@ namespace SFDAPA.Controllers
                 }
 
                 SubmissaoResposta.Alternativas = Lista;
-
+                
                 gerenciador.Adicionar(SubmissaoResposta);
 
                 return RedirectToAction("Index", new { controller = "Pergunta", id = 1 });

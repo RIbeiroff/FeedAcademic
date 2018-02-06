@@ -47,5 +47,10 @@ namespace Negocio.Business
         {
             return persistencia.ObterPorAluno(Aluno);
         }
+
+        public List<SubmissaoResposta> ObterPorPergunta(Pergunta Pergunta)
+        {
+            return persistencia.ObterPorPergunta(Pergunta);
+        }
     }
 }
